@@ -3,19 +3,20 @@ services:
     name: boxquote
     env: node
     region: oregon
-    buildCommand: npm install && npm run build --workspace server && npm run build --workspace client
+    buildCommand: npm install && cd server && npm install && npx tsc -p tsconfig.json && cd ../client && npm install && npm run build
     startCommand: npm run start --workspace server
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: boxquote-db
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
-      - key: NODE_ENV
-        value: production
 
 databases:
   - name: boxquote-db
     databaseName: boxquote
     user: boxquote
+    plan: free
