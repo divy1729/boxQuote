@@ -29,6 +29,10 @@ npm test
 
 The calculator tests include all three values supplied in the exercise brief. All financial calculation happens in the API; the browser only displays the returned breakdown.
 
+## Deploy to Render
+
+The included `render.yaml` deploys the API, React application, and PostgreSQL database together. In Render, choose **New > Blueprint**, connect this GitHub repository, and select `render.yaml`. Render generates `JWT_SECRET`, wires the managed database to `DATABASE_URL`, and publishes a single HTTPS URL.
+
 ## Design choices
 
 - JWT is stored in `localStorage` for this small demo. In production, use short-lived access tokens with secure HTTP-only refresh cookies.

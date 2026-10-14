@@ -4,6 +4,7 @@ import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
+import path from "node:path";
 import { initialiseDatabase, pool } from "./db.js";
 import { calculateQuote } from "./calculator.js";
 
@@ -72,6 +73,14 @@ app.post("/api/quotes", auth, asyncRoute(async (req: AuthRequest, res) => {
     [req.userId, fields.customerName, fields.notes, fields.lengthMm, fields.widthMm, fields.heightMm, fields.gsm, fields.paperRate, fields.conversionRate, fields.wastagePercent, fields.marginPercent, fields.quantity, fields.sheetLengthMm, fields.sheetWidthMm, fields.boardAreaSqm, fields.weightKg, fields.materialCost, fields.conversionCost, fields.wastageCost, fields.costPerBox, fields.pricePerBox, fields.quoteTotal]);
   res.status(201).json({ id: result.rows[0].id, calculation });
 }));
+
+// Production uses one Render web service: Express serves the compiled React SPA
+// and API from the same origin. Vite continues to serve the client in development.
+if (process.env.NODE_ENV === "production") {
+  const clientDist = path.resolve(process.cwd(), "client", "dist");
+  app.use(express.static(clientDist));
+  app.get("*", (req, res, next) => req.path.startsWith("/api/") ? next() : res.sendFile(path.join(clientDist, "index.html")));
+}
 
 app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof z.ZodError) return res.status(400).json({ message: error.issues[0]?.message ?? "Invalid input." });
