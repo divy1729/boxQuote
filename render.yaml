@@ -3,8 +3,7 @@ services:
     name: boxquote
     env: node
     region: oregon
-    buildCommand: npm install && cd server && npm install && npm run build && cd ../client && npm install && npm run build
-    startCommand: npm run start --workspace server
+buildCommand: npm install && cd server && npm install && npm run build && cd ../client && npm install && npm run build    startCommand: npm run start --workspace server
     envVars:
       - key: DATABASE_URL
         fromDatabase:
