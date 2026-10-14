@@ -1,6 +1,6 @@
 # BoxQuote
 
-A corrugated-box quoting micro-SaaS built for the PackWares intern exercise. It provides secure accounts, server-side pricing, saved quote history, detailed cost breakdowns, and a browser-printable quote page.
+A corrugated-box quoting demo micro-SaaS . It provides secure accounts, server-side pricing, saved quote history, detailed cost breakdowns, and a browser-printable quote page.
 
 ## Stack
 
