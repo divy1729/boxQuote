@@ -77,7 +77,7 @@ app.post("/api/quotes", auth, asyncRoute(async (req: AuthRequest, res) => {
 // Production uses one Render web service: Express serves the compiled React SPA
 // and API from the same origin. Vite continues to serve the client in development.
 if (process.env.NODE_ENV === "production") {
-  const clientDist = path.resolve(process.cwd(), "client", "dist");
+  const clientDist = path.resolve(process.cwd(), "..", "client", "dist");
   app.use(express.static(clientDist));
   app.get("*", (req, res, next) => req.path.startsWith("/api/") ? next() : res.sendFile(path.join(clientDist, "index.html")));
 }
