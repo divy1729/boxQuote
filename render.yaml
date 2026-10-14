@@ -1,23 +1,21 @@
 services:
   - type: web
     name: boxquote
-    runtime: node
-    plan: free
-    buildCommand: npm ci && npm run build
+    env: node
+    region: oregon
+    buildCommand: npm install && npm run build --workspace server && npm run build --workspace client
     startCommand: npm run start --workspace server
-    healthCheckPath: /api/health
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: boxquote-db
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
+      - key: NODE_ENV
+        value: production
 
 databases:
   - name: boxquote-db
     databaseName: boxquote
     user: boxquote
-    plan: free
