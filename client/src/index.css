@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base { body { @apply bg-mist text-ink antialiased; } input, textarea { @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-violet focus:ring-2 focus:ring-violet/15; } }
+@media print { .no-print { display:none!important } body { background:white } .print-card { box-shadow:none!important; border:none!important; max-width:none!important } }
